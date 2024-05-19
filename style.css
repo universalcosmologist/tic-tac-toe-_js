@@ -1,0 +1,126 @@
+*,*::before,*::after{
+    box-sizing:border-box;
+}
+:root{
+    --cell-size:100px;
+    --mark-size:calc(var(--cell-size)*.9);
+}
+body{
+    margin:0;
+}
+.board{
+    height:100vh;
+    width:100vw;
+    display:grid;
+    justify-content: center;
+    align-content:center;
+    grid-template-columns: repeat(3,auto);
+    justify-items:center;
+    align-items:center;
+}
+.cell{
+    height:var(--cell-size);
+    width:var(--cell-size);
+    border:1px solid black;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    position:relative;
+    cursor:pointer;
+}
+.cell.x,
+.cell.o{
+    cursor:not-allowed;
+}
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3){
+    border-top:none;
+}
+.cell:nth-child(3n+3){
+    border-right:none;
+}
+.cell:last-child,
+.cell:nth-child(7),
+.cell:nth-child(8){
+    border-bottom:none;
+}
+.cell:nth-child(3n+1){
+    border-left:none;
+}
+.cell.x::after,
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after{
+    position:absolute;
+    content:'';
+    background-color: black;
+    height:var(--mark-size);
+    width:calc(var(--mark-size)*.15);
+}
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before{
+    transform:rotate(45deg);
+}
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after{
+    transform:rotate(-45deg);
+}
+.cell.o::after,
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after{
+    position:absolute;
+    content:'';
+    border-radius:50%;
+}
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::after{
+    height:calc(var(--mark-size)*.7);
+    width:calc(var(--mark-size)*.7);
+    background-color: white;
+}
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before{
+    height:var(--mark-size);
+    width:var(--mark-size);
+    background-color: black;
+}
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after
+{
+    background-color: lightgray;
+}
+.winning-message{
+    display:none;
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color:rgba(0,0,0,0.75);
+    font-size:5rem;
+    color:white;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+}
+.winning-message button{
+    font-size:3rem;
+    margin:10px;
+    border-radius:10px;
+    border:2px solid black;
+}
+.winning-message button:hover{
+    color:white;
+    background-color: black;
+    border-color:white;
+}
+.winning-message.show{
+  display:flex;
+}
+
+
+
